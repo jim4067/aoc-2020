@@ -29,16 +29,19 @@ function correct_password(arr) {
         const split_two = split_one[0].split(' ');
         const final_split = split_two[0].split('-');
 
-        const limit_one = final_split[0];
-        const limit_two = final_split[1];
+        const limit_one = (final_split[0] - 1);
+        const limit_two = (final_split[1] - 1);
         const required_letter = split_two[1];
         const password = split_one[1].substring(1);
 
-        let letter_count = 0;
-        password.split('').map((letter) => letter.includes(required_letter) ? letter_count += 1 : null);
+        const letter_arr = password.split('');
 
-        if (letter_count >= limit_one && letter_count <= limit_two) {
+        if (letter_arr[limit_one] === required_letter || letter_arr[limit_two] === required_letter) {
             counter += 1;
+        }
+        //forget that the passwords cannot contain the required letters at the same time 
+        if (letter_arr[limit_one] === required_letter && letter_arr[limit_two] === required_letter) {
+            counter -= 1;
         }
     }
 
